@@ -7,9 +7,12 @@ from .utils import exponential
 from .normalize import normalize_ifrmode
 from .fiducial_sf_law import fiducial_sf_law
 from .diskmodel import BHG16
-from .insideout import insideout
+from ..outflows import equilibrium
 import vice
 import math as m
+
+_SCALE_RADIUS_ = 3 # kpc
+_SOLAR_TIMESCALE_ = 15 # Gyr
 
 class oneinfall(exponential):
     r"""
@@ -38,10 +41,18 @@ class oneinfall(exponential):
     Other atributes and functionality are inherited from
     ``modified_exponential`` declared in ``src/simulations/models/utils.py``.
     """
-    def __init__(self, radius, vgas = 0., dt = 0.01, dr = 0.1,
-                 mass_loading = vice.milkyway.default_mass_loading,
-                 diskmodel = BHG16()):
-        super().__init__(timescale = insideout.timescale(radius))
+    def __init__(
+            self, 
+            radius, 
+            vgas = 0., 
+            dt = 0.01, 
+            dr = 0.1,
+            mass_loading = equilibrium(),
+            diskmodel = BHG16()
+        ):
+        super().__init__(
+            timescale = _SOLAR_TIMESCALE_ * m.exp((radius - 8)/_SCALE_RADIUS_)
+        )
         area = m.pi * ((radius + dr/2.)**2 - (radius - dr/2.)**2)
         tau_star = fiducial_sf_law(area)
         eta = mass_loading(radius)

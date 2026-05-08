@@ -9,7 +9,7 @@ from .fiducial_sf_law import fiducial_sf_law
 _AMPLITUDE_ = 0.5
 _PATTERN_SPEED_ = 2 # kpc/Gyr
 _START_TIME_ = 3.2 # Gyr, time after simulation start
-_BURST_WIDTH_ = 1 # Gyr, standard deviation of Gaussian
+_BURST_WIDTH_ = 0.5 # Gyr, standard deviation of Gaussian
 
 class rippleburst(fiducial_sf_law, gaussian):
     """

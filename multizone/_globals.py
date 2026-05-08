@@ -39,6 +39,6 @@ LOCAL_DISK_RATIO = 0.12 # at r = Rsun
 GAS_DISK_SCALE_RADIUS = 3.6 # kpc
 
 # Exponential outflow scale radius
-ETA_SCALE_RADIUS = 5.0
+ETA_SCALE_RADIUS = 7.0
 # Outflow mass-loading at Solar radius
 ETA_SOLAR = 0.4
