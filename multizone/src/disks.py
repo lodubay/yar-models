@@ -51,6 +51,7 @@ class diskmodel(vice.milkyway):
         - "staticinfall"
         - "oneinfall"
         - "rippleburst"
+        - "multiripple"
     
     evol_kwargs : ``dict'' [default: {}]
         Keyword arguments to pass to the star formation history initialization.
@@ -190,7 +191,8 @@ class diskmodel(vice.milkyway):
             "earlyburst", 
             "staticinfall",
             "oneinfall",
-            "rippleburst"
+            "rippleburst",
+            "multiripple"
         ]:
             self.mode = "ifr"
             for zone in self.zones: zone.Mg0 = 0.
@@ -227,6 +229,10 @@ class diskmodel(vice.milkyway):
                     )
                 elif spec.lower() == "rippleburst":
                     self.zones[i].tau_star = models.rippleburst(
+                        area, mean_radius, prefactor=sfe_factor
+                    )
+                elif spec.lower() == "multiripple":
+                    self.zones[i].tau_star = models.multiripple(
                         area, mean_radius, prefactor=sfe_factor
                     )
                 else:
@@ -342,15 +348,16 @@ class star_formation_history:
         while (i + 1) * zone_width <= max_radius:
             self._radii.append((i + 0.5) * zone_width)
             self._evol.append({
-                "static":             models.static,
-                "insideout":          models.insideout,
-                "lateburst":          models.lateburst,
-                "outerburst":         models.outerburst,
-                "twoinfall":          models.twoinfall,
-                "earlyburst":         models.earlyburst_ifr,
-                "staticinfall":      models.staticinfall,
-                "oneinfall":          models.oneinfall,
-                "rippleburst":        models.oneinfall,
+                "static":           models.static,
+                "insideout":        models.insideout,
+                "lateburst":        models.lateburst,
+                "outerburst":       models.outerburst,
+                "twoinfall":        models.twoinfall,
+                "earlyburst":       models.earlyburst_ifr,
+                "staticinfall":     models.staticinfall,
+                "oneinfall":        models.oneinfall,
+                "rippleburst":      models.oneinfall,
+                "multiripple":      models.oneinfall,
             }[spec.lower()]((i + 0.5) * zone_width, dr = zone_width, dt = dt,
                             **kwargs))
             i += 1

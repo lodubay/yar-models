@@ -28,7 +28,8 @@ _EVOLUTION_MODELS_ = [
     "staticinfall",
     "oneinfall",
     "twoinfall",
-    "rippleburst"
+    "rippleburst",
+    "multiripple",
 ]
 _DELAY_MODELS_ = [
     "powerlaw", 
