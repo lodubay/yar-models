@@ -52,6 +52,7 @@ class diskmodel(vice.milkyway):
         - "oneinfall"
         - "rippleburst"
         - "multiripple"
+        - "sfeburst"
     
     evol_kwargs : ``dict'' [default: {}]
         Keyword arguments to pass to the star formation history initialization.
@@ -192,7 +193,8 @@ class diskmodel(vice.milkyway):
             "staticinfall",
             "oneinfall",
             "rippleburst",
-            "multiripple"
+            "multiripple",
+            "sfeburst"
         ]:
             self.mode = "ifr"
             for zone in self.zones: zone.Mg0 = 0.
@@ -234,6 +236,10 @@ class diskmodel(vice.milkyway):
                 elif spec.lower() == "multiripple":
                     self.zones[i].tau_star = models.multiripple(
                         area, mean_radius, prefactor=sfe_factor
+                    )
+                elif spec.lower() == "sfeburst":
+                    self.zones[i].tau_star = models.sfeburst(
+                        area, prefactor=sfe_factor
                     )
                 else:
                     # Simplified SF law, single power-law with cutoff
@@ -358,6 +364,7 @@ class star_formation_history:
                 "oneinfall":        models.oneinfall,
                 "rippleburst":      models.oneinfall,
                 "multiripple":      models.oneinfall,
+                "sfeburst":         models.oneinfall,
             }[spec.lower()]((i + 0.5) * zone_width, dr = zone_width, dt = dt,
                             **kwargs))
             i += 1

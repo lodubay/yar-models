@@ -13,6 +13,7 @@ __all__ = [
     "twoinfall_sf_law", 
     "rippleburst",
     "multiripple",
+    "sfeburst",
     "two_component_disk",
     "BHG16"
 ]
@@ -30,4 +31,5 @@ from .earlyburst_sf_law import earlyburst_sf_law
 from .twoinfall_sf_law import twoinfall_sf_law
 from .rippleburst import rippleburst
 from .multiripple import multiripple
+from .sfeburst import sfeburst
 from .diskmodel import two_component_disk, BHG16

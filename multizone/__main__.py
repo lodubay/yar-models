@@ -30,6 +30,7 @@ _EVOLUTION_MODELS_ = [
     "twoinfall",
     "rippleburst",
     "multiripple",
+    "sfeburst",
 ]
 _DELAY_MODELS_ = [
     "powerlaw", 
